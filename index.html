@@ -15,13 +15,23 @@
   <h2>Anzahl der gerickrollten Studenten: <span id="counter">0</span></h2>
 
   <script>
-    // Initialisiere den Counter
-    var count = 0;
+    // Überprüfe, ob der Counter-Wert im lokalen Speicher vorhanden ist
+    if (localStorage.getItem("counter")) {
+      // Lade den Counter-Wert aus dem lokalen Speicher
+      var count = parseInt(localStorage.getItem("counter"));
+      document.getElementById("counter").textContent = count;
+    } else {
+      // Initialisiere den Counter, wenn er nicht im lokalen Speicher vorhanden ist
+      var count = 0;
+    }
   
     // Funktion zum Inkrementieren des Counters und Aktualisieren der Anzeige
     function incrementCounter() {
       count++;
       document.getElementById("counter").textContent = count;
+      
+      // Speichere den Counter-Wert im lokalen Speicher
+      localStorage.setItem("counter", count.toString());
     }
 
     // Verzögert die Aufhebung der Stummschaltung um 2 Sekunden (2000 Millisekunden)
