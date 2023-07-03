@@ -15,10 +15,32 @@
   <button id="playButton" onclick="toggleVideo()">Play</button>
   <button id="pauseButton" onclick="toggleVideo()" style="display: none;">Pause</button>
 
+  <h2>Anzahl der gerickrollten Studenten: <span id="counter">0</span></h2>
+
   <script>
     var video = document.getElementById("video");
     var playButton = document.getElementById("playButton");
     var pauseButton = document.getElementById("pauseButton");
+    var counter = document.getElementById("counter");
+
+    // Überprüfe, ob der Counter-Wert im lokalen Speicher vorhanden ist
+    if (localStorage.getItem("counter")) {
+      // Lade den Counter-Wert aus dem lokalen Speicher
+      var count = parseInt(localStorage.getItem("counter"));
+      counter.textContent = count;
+    } else {
+      // Initialisiere den Counter, wenn er nicht im lokalen Speicher vorhanden ist
+      var count = 0;
+    }
+
+    // Funktion zum Inkrementieren des Counters und Aktualisieren der Anzeige
+    function incrementCounter() {
+      count++;
+      counter.textContent = count;
+  
+      // Speichere den Counter-Wert im lokalen Speicher
+      localStorage.setItem("counter", count.toString());
+    }
 
     // Funktion zum Umschalten des Video-Status (Play/Pause)
     function toggleVideo() {
@@ -26,12 +48,16 @@
         video.play();
         playButton.style.display = "none";
         pauseButton.style.display = "inline";
+        incrementCounter();
       } else {
         video.pause();
         playButton.style.display = "inline";
         pauseButton.style.display = "none";
       }
     }
+
+    // Inkrementiere den Counter, wenn die Seite geladen wird
+    incrementCounter();
   </script>
 </body>
 </html>
