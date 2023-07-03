@@ -6,11 +6,13 @@
 <body>
   <h1>Willkommen zur Rickroll-Webseite!</h1>
   <p>
-    Du wurdest gerade gerickrolled! Das Video wird automatisch abgespielt.
+    Du wurdest gerade gerickrolled! Klicke auf den Play-Button, um das Video abzuspielen.
   </p>
-  <video id="video" width="560" height="315" autoplay>
+  <video id="video" width="560" height="315">
     <source src="Rick Astley - Never Gonna Give You Up (Official Music Video).mp4" type="video/mp4">
   </video>
+  
+  <button id="playButton" onclick="playVideo()">Play</button>
   
   <h2>Anzahl der gerickrollten Studenten: <span id="counter">0</span></h2>
 
@@ -24,19 +26,25 @@
       // Initialisiere den Counter, wenn er nicht im lokalen Speicher vorhanden ist
       var count = 0;
     }
-  
+
     // Funktion zum Inkrementieren des Counters und Aktualisieren der Anzeige
     function incrementCounter() {
       count++;
       document.getElementById("counter").textContent = count;
-      
+
       // Speichere den Counter-Wert im lokalen Speicher
       localStorage.setItem("counter", count.toString());
     }
-  
-    // Füge dem Video ein Event-Listener hinzu, der den Counter inkrementiert, wenn das Video zu Ende ist
-    var video = document.getElementById("video");
-    video.addEventListener("ended", incrementCounter);
+
+    // Funktion zum Abspielen des Videos
+    function playVideo() {
+      var video = document.getElementById("video");
+      video.play();
+      incrementCounter();
+    }
+
+    // Inkrementiere den Counter, wenn die Seite geladen wird
+    incrementCounter();
   </script>
 </body>
 </html>
