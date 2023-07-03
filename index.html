@@ -1,50 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Rickroll Counter</title>
+  <title>Rickroll</title>
 </head>
 <body>
   <h1>Willkommen zur Rickroll-Webseite!</h1>
   <p>
-    Du wurdest gerade gerickrolled! Klicke auf den Play-Button, um das Video abzuspielen.
+    Du wurdest gerade gerickrolled!
   </p>
   <video id="video" width="560" height="315">
     <source src="Rick Astley - Never Gonna Give You Up (Official Music Video).mp4" type="video/mp4">
   </video>
   
-  <button id="playButton" onclick="playVideo()">Play</button>
-  
-  <h2>Anzahl der gerickrollten Studenten: <span id="counter">0</span></h2>
+  <button id="playButton" onclick="toggleVideo()">Play</button>
+  <button id="pauseButton" onclick="toggleVideo()" style="display: none;">Pause</button>
 
   <script>
-    // Überprüfe, ob der Counter-Wert im lokalen Speicher vorhanden ist
-    if (localStorage.getItem("counter")) {
-      // Lade den Counter-Wert aus dem lokalen Speicher
-      var count = parseInt(localStorage.getItem("counter"));
-      document.getElementById("counter").textContent = count;
-    } else {
-      // Initialisiere den Counter, wenn er nicht im lokalen Speicher vorhanden ist
-      var count = 0;
+    var video = document.getElementById("video");
+    var playButton = document.getElementById("playButton");
+    var pauseButton = document.getElementById("pauseButton");
+
+    // Funktion zum Umschalten des Video-Status (Play/Pause)
+    function toggleVideo() {
+      if (video.paused) {
+        video.play();
+        playButton.style.display = "none";
+        pauseButton.style.display = "inline";
+      } else {
+        video.pause();
+        playButton.style.display = "inline";
+        pauseButton.style.display = "none";
+      }
     }
-
-    // Funktion zum Inkrementieren des Counters und Aktualisieren der Anzeige
-    function incrementCounter() {
-      count++;
-      document.getElementById("counter").textContent = count;
-
-      // Speichere den Counter-Wert im lokalen Speicher
-      localStorage.setItem("counter", count.toString());
-    }
-
-    // Funktion zum Abspielen des Videos
-    function playVideo() {
-      var video = document.getElementById("video");
-      video.play();
-      incrementCounter();
-    }
-
-    // Inkrementiere den Counter, wenn die Seite geladen wird
-    incrementCounter();
   </script>
 </body>
 </html>
